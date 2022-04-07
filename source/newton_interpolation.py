@@ -29,5 +29,20 @@ def newton_interpolation(X: np.ndarray, Y: np.ndarray) -> np.ndarray:
     return np.array(arguments)
 
 
+def calculate_newton_polynomial(x: float, X: np.ndarray, arguments: np.ndarray) -> float:
+    result = 0
+
+    for i in range(len(arguments)):
+        # I didn't know how to name this float.
+        # It stores product of (x - X1)(x - X2)(x - Xn)
+        brackets = 1
+        for j in range(1, i + 1):
+            brackets *= x - X[j-1]
+
+        result += arguments[i] * brackets
+
+    return result
+
+
 class InputArraysHadDifferentLengthsException(Exception):
     pass
