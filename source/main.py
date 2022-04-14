@@ -19,9 +19,8 @@ def main():
             (1) Wprowadzić węzły (ręcznie)
             (2) Wprowadzić węzły (plik)
             (3) Wybrać funkcję (prefediniowana)
-            (4) Wybrać funkcję (własna)
-            (5) Podać zakres
-            (6) Obliczyć interpolację
+            (4) Podać zakres
+            (5) Obliczyć interpolację
             [q - wyjście]\n> ''')
             match user_input:
                 case '1':
@@ -32,11 +31,8 @@ def main():
                 case '3':
                     func = choose_function() if not 0 else func
                 case '4':
-                    # TODO
-                    pass
-                case '5':
                     rang = [int(x) for x in input("Podaj dwie liczby oddzielone spacją: > ").split()]
-                case '6':
+                case '5':
                     draw_plot(X, Y, rang, func)
                 case 'q':
                     break
@@ -45,13 +41,12 @@ def main():
             print()
             
         except ValueError:
-            print("Podczas podawania parsowania macierzy wystąpił błąd. Sprawdź poprawność wprowadzanych danych.")
+            print("Podczas przetwarzania danych wystąpił błąd. Sprawdź poprawność wprowadzanych danych.")
 
 
 def draw_plot(X : np.array, Y : np.array, range : np.array, interpolation_func):
     arguments = ni.newton_interpolation(X, Y)
-    # Debug
-    #print(arguments)
+    print("Obliczone współczynniki: ", arguments)
     plot = ch.Plot(range[0], range[1])
     plot.draw_func(interpolation_func)
     plot.draw_interpolation(X, arguments)
@@ -65,6 +60,7 @@ class Functions:
     f_polynomial = lambda x : 3*x**2 + 5*x - 10
     f_polynomial_unplural = lambda x : 10*x**4 + 5*x**3 - 50*x**2 + 20
     f_sinus = lambda x: np.sin(x)
+    f_complex = lambda x: x**2 + 20*np.sin(x) - 10
 
     def function_name(func):
         match func:
@@ -73,6 +69,7 @@ class Functions:
             case Functions.f_polynomial : return "wielomianowa drugiego stopnia"
             case Functions.f_polynomial_unplural : return "wielomianowa trzeciego stopnia"
             case Functions.f_sinus : return "trygonometryczna (sinus)"
+            case Functions.f_complex : return "złożona"
 
 def choose_function():
     user_input = input(f'''Podaj numer funkcji:
@@ -80,13 +77,15 @@ def choose_function():
     (2) {Functions.function_name(Functions.f_absolute)}
     (3) {Functions.function_name(Functions.f_polynomial)}
     (4) {Functions.function_name(Functions.f_polynomial_unplural)}
-    (5) {Functions.function_name(Functions.f_sinus)}\n> ''')
+    (5) {Functions.function_name(Functions.f_sinus)}
+    (6) {Functions.function_name(Functions.f_complex)}\n> ''')
     match user_input:
         case '1': return Functions.f_linear
         case '2': return Functions.f_absolute
         case '3': return Functions.f_polynomial
         case '4': return Functions.f_polynomial_unplural
         case '5': return Functions.f_sinus
+        case '6': return Functions.f_complex
         case _: return 0
 
 
