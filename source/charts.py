@@ -15,10 +15,10 @@ class Plot:
         pyplot.ylabel('y')
 
     def draw_func(self, func):
-        plot_x = np.linspace(self.__minimum, self.__maximum, 100)
-        plot_y = np.zeros(100)
+        plot_x = np.linspace(self.__minimum, self.__maximum, 300)
+        plot_y = np.zeros(300)
 
-        for i in range(100):
+        for i in range(300):
             plot_y[i] = func(plot_x[i])
 
         self.__axes.plot(plot_x, plot_y, 'r')

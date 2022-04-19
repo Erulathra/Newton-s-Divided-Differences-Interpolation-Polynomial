@@ -17,6 +17,9 @@ def array_from_user_input() -> (np.array, np.array):
 	string_array = input('''Wprowadź punkty, oddzielając X i Y spacją, a węzły średnikami, np:\n\
 		3 4; 5 1; 2 5; 8 4; 9 2; 3 5\n> ''')
 	string_array = [line.split() for line in string_array.split(";")]
+	result = [[], []]
 	for point in string_array:
 		x, y = point
-	return (np.array(x, float), np.array(y, float))
+		result[0].append(float(x))
+		result[1].append(float(y))
+	return np.array(result[0]), np.array(result[1])
